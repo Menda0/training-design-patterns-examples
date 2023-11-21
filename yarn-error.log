@@ -1,0 +1,46 @@
+Arguments: 
+  /usr/local/bin/node /opt/homebrew/bin/yarn build
+
+PATH: 
+  /opt/homebrew/opt/mysql-client/bin:/Users/menda0/Downloads/google-cloud-sdk/bin:/opt/homebrew/opt/llvm/bin:/Users/menda0/bin:/Users/menda0/.gem/bin:/Users/menda0/.local/share/solana/install/active_release/bin:/usr/local/share/npm/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin:/opt/homebrew/opt/mysql-client/bin:/Users/menda0/Downloads/google-cloud-sdk/bin:/opt/homebrew/opt/llvm/bin:/Users/menda0/bin:/Users/menda0/.gem/bin:/Users/menda0/.local/share/solana/install/active_release/bin:/usr/local/share/npm/bin:/opt/homebrew/bin:/Users/menda0/Library/Application Support/JetBrains/Toolbox/scripts:/Users/menda0/Projects/flutter/bin:/Users/menda0/Library/Android/sdk/emulator:/Users/menda0/Library/Android/sdk/platform-tools:/Users/menda0/Library/Application Support/JetBrains/Toolbox/scripts:/Users/menda0/Projects/flutter/bin:/Users/menda0/Library/Android/sdk/emulator:/Users/menda0/Library/Android/sdk/platform-tools
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  18.17.0
+
+Platform: 
+  darwin arm64
+
+Trace: 
+  SyntaxError: /Users/menda0/Projects/training/design-patterns-examples/package.json: Unexpected string in JSON at position 147
+      at JSON.parse (<anonymous>)
+      at /opt/homebrew/lib/node_modules/yarn/lib/cli.js:1629:59
+      at Generator.next (<anonymous>)
+      at step (/opt/homebrew/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /opt/homebrew/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "design-patterns-examples",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "build": "npx tsc"
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+      "typescript": "^5.2.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
