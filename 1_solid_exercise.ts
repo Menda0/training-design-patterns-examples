@@ -1,26 +1,37 @@
 import inquirer from 'inquirer';
 
+enum EntityType {
+    book,
+    user
+}
+
 class IEntity {
     public name: string
     public isbn?: string
+    public type: EntityType
 
-    constructor(name: string, isbn?:string){
+    constructor(name: string, type: EntityType, isbn?:string){
         this.name = name
         this.isbn = isbn
+        this.type = type
     }
 
-    getName(){
-        return this.getName
+    public getDescription(){
+
+        if(this.type === EntityType.book){
+            return `Book with name:"${this.name}" and isbn:"${this.isbn}"`
+        }else if(this.type === EntityType.user){
+            return `User with name:"${this.name}"`
+        }else{
+            return "invalid entity type"
+        }
     }
 }
 
 class Book extends IEntity{
-    public price: number
 
-    constructor(name: string, price: number){
-        super(name)
-
-        this.price = price
+    constructor(name: string, isbn?:string){
+        super(name, EntityType.book, isbn)
     }
 }
 
@@ -28,7 +39,7 @@ class User extends IEntity{
     public age: number
 
     constructor(name: string, age: number){
-        super(name)
+        super(name, EntityType.user)
 
         this.age = age
     }
@@ -88,7 +99,7 @@ class CommandLineInterface {
     }
 
     async addBook(){
-        const book = await inquirer.prompt<IEntity>([
+        const bookData = await inquirer.prompt<IEntity>([
             {
                 type: 'text',
                 name: 'name',
@@ -101,8 +112,8 @@ class CommandLineInterface {
             }
         ]);
 
-        const newBook = this.libraryManager.addBook(book)
-        console.log(`Book added with name:"${newBook.name}" and isbn:"${newBook.isbn}"`)
+        const newBook = this.libraryManager.addBook(new Book(bookData.name, bookData.isbn))
+        console.log(`Added ${newBook.getDescription()}"`)
     }
 
     listBooks(){

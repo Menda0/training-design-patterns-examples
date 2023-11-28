@@ -1,26 +1,39 @@
 import inquirer from 'inquirer';
+var EntityType;
+(function (EntityType) {
+    EntityType[EntityType["book"] = 0] = "book";
+    EntityType[EntityType["user"] = 1] = "user";
+})(EntityType || (EntityType = {}));
 class IEntity {
     name;
     isbn;
-    constructor(name, isbn) {
+    type;
+    constructor(name, type, isbn) {
         this.name = name;
         this.isbn = isbn;
+        this.type = type;
     }
-    getName() {
-        return this.getName;
+    getDescription() {
+        if (this.type === EntityType.book) {
+            return `Book with name:"${this.name}" and isbn:"${this.isbn}"`;
+        }
+        else if (this.type === EntityType.user) {
+            return `User with name:"${this.name}"`;
+        }
+        else {
+            return "invalid entity type";
+        }
     }
 }
 class Book extends IEntity {
-    price;
-    constructor(name, price) {
-        super(name);
-        this.price = price;
+    constructor(name, isbn) {
+        super(name, EntityType.book, isbn);
     }
 }
 class User extends IEntity {
     age;
     constructor(name, age) {
-        super(name);
+        super(name, EntityType.user);
         this.age = age;
     }
 }
@@ -66,7 +79,7 @@ class CommandLineInterface {
         this.libraryManager = new LibraryManagement();
     }
     async addBook() {
-        const book = await inquirer.prompt([
+        const bookData = await inquirer.prompt([
             {
                 type: 'text',
                 name: 'name',
@@ -78,8 +91,8 @@ class CommandLineInterface {
                 message: 'Book ISBN?',
             }
         ]);
-        const newBook = this.libraryManager.addBook(book);
-        console.log(`Book added with name:"${newBook.name}" and isbn:"${newBook.isbn}"`);
+        const newBook = this.libraryManager.addBook(new Book(bookData.name, bookData.isbn));
+        console.log(`Added ${newBook.getDescription()}"`);
     }
     listBooks() {
         const books = this.libraryManager.getBooks();
