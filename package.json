@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "run:hello": "node build/helloworld.js",
+    "exercise1:solution": "yarn build && node build/1_solid_exercise_solution.js",
+    "exercise1": "yarn build && node build/1_solid_exercise.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +14,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^9.0.7",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "inquirer": "^9.2.12"
   }
 }
