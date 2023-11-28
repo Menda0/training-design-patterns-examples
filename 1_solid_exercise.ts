@@ -75,8 +75,8 @@ class LibraryManagement {
     }
 
     removeUser(userName: string) {
-        const user = this.getBook(userName)
-        this.users = this.users.filter(book => book.name !== userName);
+        const user = this.getUser(userName)
+        this.users = this.users.filter(user => user.name !== userName);
         return user
     }
 
@@ -121,6 +121,24 @@ class CommandLineInterface {
         console.table(books)
     }
 
+    async getBook(){
+        const book = await inquirer.prompt([
+            {
+                type: 'text',
+                name: 'name',
+                message: 'Book Name?'
+            }
+        ])
+
+        const result = this.libraryManager.getBook(book.name)
+
+        if(result){
+            console.log(result.getDescription())
+        }else{
+            console.log("Book not found")
+        }
+    }
+
     async main(){
         const answers = await inquirer.prompt([
             {
@@ -144,7 +162,8 @@ class CommandLineInterface {
                 // Implement the logic for removing a book
                 break;
             case 'Get Book':
-                // Implement the logic for getting a book
+                await this.getBook()
+                this.main()
                 break;
             case 'Add User':
                 // Implement the logic for adding a user
