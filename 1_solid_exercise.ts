@@ -7,6 +7,11 @@ enum EntityType {
 
 class IEntity {
     public name: string
+    // Violates Liskov Substitution Priciple
+    // Objects of a superclass should be replaced with objects 
+    // of its subclasses without affecting the correctnetss of the program
+    // ISBN Belongs to books
+    // May not be nullable
     public isbn?: string
     public type: EntityType
 
@@ -18,6 +23,11 @@ class IEntity {
 
     public getDescription(){
 
+        // Viloates the Open/Closed Principal
+        // Method should be open for extension but closed for modification
+        // Use inherance
+        // Make this method abstract
+        // Every entity should implement this method
         if(this.type === EntityType.book){
             return `Book with name:"${this.name}" and isbn:"${this.isbn}"`
         }else if(this.type === EntityType.user){
@@ -35,6 +45,10 @@ class Book extends IEntity{
     }
 }
 
+// Violates Liskov Substitution Priciple
+// Objects of a superclass should be replaced with objects 
+// of its subclasses without affecting the correctnetss of the program
+// User should not have an isbn
 class User extends IEntity{
     public age: number
 
@@ -45,6 +59,10 @@ class User extends IEntity{
     }
 }
 
+// Violates Single responsability principle
+// Class should have only one reason to change, meaning it should have
+// only one job of responsability
+// Multiple responsabilities books and users
 class LibraryManagement {
     books: IEntity[] = [];
     users: IEntity[] = [];
@@ -85,15 +103,18 @@ class LibraryManagement {
         return user
     }
 
-    
-
     getUsers(){
         return this.users
     }
 }
 
 class CommandLineInterface {
+
     libraryManager: LibraryManagement
+
+    // Violates the dependency inversion principle (DIP)
+    // Hight level modules should not depend on low level modules. Both should depend on abstraction
+    // Should receive library manager from constructor parameter
     constructor(){
         this.libraryManager = new LibraryManagement();
     }
@@ -159,7 +180,7 @@ class CommandLineInterface {
                 this.main()
                 break;
             case 'Remove Book':
-                // Implement the logic for removing a book
+                // Implemqent the logic for removing a book
                 break;
             case 'Get Book':
                 await this.getBook()
