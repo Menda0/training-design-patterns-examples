@@ -7,6 +7,8 @@
   "scripts": {
     "exercise1:solution": "yarn build && node build/1_solid_exercise_solution.js",
     "exercise1": "yarn build && node build/1_solid_exercise.js",
+    "exercise2:solution": "yarn build && node build/2_patterns_creational_solution.js",
+    "exercise2": "yarn build && node build/2_patterns_creational.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

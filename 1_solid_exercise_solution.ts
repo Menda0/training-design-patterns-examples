@@ -194,13 +194,13 @@ class CommandLineInterface {
             }
         ]);
 
-        const newBook = this.libraryManager.addBook(new Book(bookData.name, bookData.isbn))
-        console.log(`Added ${newBook.getDescription()}"`)
+        //const newBook = this.libraryManager.addBook(new Book(bookData.name, bookData.isbn))
+        //console.log(`Added ${newBook.getDescription()}"`)
     }
 
     listBooks(){
-        const books = this.libraryManager.getBooks()
-        console.table(books)
+        //const books = this.libraryManager.getBooks()
+        //console.table(books)
     }
 
     async getBook(){
@@ -212,13 +212,13 @@ class CommandLineInterface {
             }
         ])
 
-        const result = this.libraryManager.getBook(book.name)
+        //const result = this.libraryManager.getBook(book.name)
 
-        if(result){
-            console.log(result.getDescription())
-        }else{
-            console.log("Book not found")
-        }
+        // if(result){
+        //     console.log(result.getDescription())
+        // }else{
+        //     console.log("Book not found")
+        // }
     }
 
     async main(){

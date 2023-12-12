@@ -61,3 +61,6 @@ class CommandLineInterface {
         }
     }
 }
+
+const cli = new CommandLineInterface()
+cli.main()
