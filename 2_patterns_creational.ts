@@ -24,6 +24,21 @@ class RequirementsDocument {
 /** Use a creational pattern to create an instance of RequirementsDocument **/
 /** Example: Factory, Builder or Singleton **/
 class CommandLineInterface {
+
+    private async addAuthor(){
+        const authorInquirer = await inquirer.prompt([
+            {
+                type: "text",
+                name: "author",
+                message: "Document Author?"
+            }
+        ])
+
+        // TODO: Use a creational pattern in other to create a RequirementDocument
+        // with this author
+        console.log("My document author is:", authorInquirer.author)
+    }
+
     async main(){
         const answers = await inquirer.prompt([
             {
@@ -36,8 +51,8 @@ class CommandLineInterface {
     
         switch (answers.action) {
             case 'Add Author':
-                // Add an author
-                this.main()
+                await this.addAuthor()
+                await this.main()
                 break;
             case 'Add Name':
                 // Add a name to the document
