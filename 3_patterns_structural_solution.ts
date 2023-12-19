@@ -131,6 +131,7 @@ class CommandLineInterface {
         //const price = answers.price
         const newProduct = new Product(code, name, price)
         productManager.addProduct(newProduct)
+        console.log(`Added product: ${newProduct.display()}`)
     }
 
     async main(){
@@ -145,7 +146,7 @@ class CommandLineInterface {
     
         switch (answers.action) {
             case 'Add Product':
-
+                await this.addProduct()
                 await this.main()
                 break;
             case 'Add Product Bundle':
