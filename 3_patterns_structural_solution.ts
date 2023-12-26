@@ -83,6 +83,10 @@ class DiscountedProduct {
     getDiscountedPrice(): number {
         return this.originalProduct.getPrice() * (1 - this.discountRate / 100);
     }
+
+    getOriginalProduct(){
+        return this.originalProduct
+    }
 }
 
 class DiscountedProductAdapter implements ProductComponent {
@@ -90,13 +94,16 @@ class DiscountedProductAdapter implements ProductComponent {
     constructor(private specialOffer: DiscountedProduct){}
 
     display(): string {
-        throw new Error("Method not implemented.");
+        return this.specialOffer.getDetails()
     }
+    
     getPrice(): number {
-        throw new Error("Method not implemented.");
+        return this.specialOffer.getDiscountedPrice()
     }
+
     getCode(): string {
-        throw new Error("Method not implemented.");
+        const product = this.specialOffer.getOriginalProduct()
+        return product.getCode()
     }
 }
 
@@ -132,6 +139,40 @@ class CommandLineInterface {
         const newProduct = new Product(code, name, price)
         productManager.addProduct(newProduct)
         console.log(`Added product: ${newProduct.display()}`)
+    }
+
+    async askForProductCodes(productCodes:string[] = []): Promise<string[]>{
+        const {productCode} = await inquirer.prompt([
+            {
+                type: 'text',
+                name: "productCode",
+                message: "Enter a product code (or press enter to finish)"
+            }
+        ])
+
+        if(productCode){
+            productCodes.push(productCode)
+            return this.askForProductCodes(productCodes)
+        }else{
+            return productCodes
+        }
+    }
+
+    async addBundle(){
+        const answers = await inquirer.prompt([
+            {
+                type: "text",
+                name: "name",
+                message: "Bundle Name?"
+            },
+            {
+                type: "text",
+                name: "code",
+                message: "Bundle Code?"
+            }
+        ])
+
+        const productCodes = await this.askForProductCodes()
     }
 
     async main(){

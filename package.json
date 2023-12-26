@@ -11,6 +11,8 @@
     "exercise2": "yarn build && node build/2_patterns_creational.js",
     "exercise3:solution": "yarn build && node build/3_patterns_structural_solution.js",
     "exercise3": "yarn build && node build/3_patterns_structural.js",
+    "exercise4:solution": "yarn build && node build/4_patterns_behavioral_solution.js",
+    "exercise4": "yarn build && node build/4_patterns_behavioral.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
