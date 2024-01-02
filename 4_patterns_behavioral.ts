@@ -8,6 +8,12 @@ interface PersonObserver {
     newPersonAdded(person: Person): void;
 }
 
+class PersonAgeObserver implements PersonObserver{
+    newPersonAdded(person: Person){
+        console.log("New person was added")
+    }
+}
+
 interface Iterator<T> {
     next(): T;
     hasNext(): boolean;
@@ -45,6 +51,34 @@ class PersonCollection implements IsIterable<Person>{
 
 class CommandLineInterface {
 
+    constructor(private personCollection: PersonCollection){}
+
+    async createPerson(){
+
+        const answers = await inquirer.prompt([
+            {
+                type: "text",
+                name: "name",
+                message: "Person name?"
+            },
+            {
+                type: "number",
+                name: "age",
+                message: "Person age?"
+            },
+            {
+                type: "number",
+                name: "nif",
+                message: "Person Nif"
+            }
+        ])
+
+        const {name, age, nif} = answers
+
+        const person = new Person(name, age, nif)
+        this.personCollection.addPerson(person)
+    }
+
     async main(){
         const answers = await inquirer.prompt([
             {
@@ -58,6 +92,7 @@ class CommandLineInterface {
         switch (answers.action) {
             case 'Add Person':
 
+                await this.createPerson()
                 await this.main()
                 break;
             case 'Get Person':
@@ -74,5 +109,9 @@ class CommandLineInterface {
     }
 }
 
-const cli = new CommandLineInterface()
+const ageObserver = new PersonAgeObserver()
+const personCollection = new PersonCollection()
+personCollection.addObserver(ageObserver)
+
+const cli = new CommandLineInterface(personCollection)
 cli.main()
